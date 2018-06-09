@@ -5,12 +5,14 @@
  */
 package minerider;
 
+import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -25,122 +27,30 @@ import org.json.simple.parser.ParseException;
  */
 public class FileManagerJson {
 
-    private String pathFile;
+    private static String pathFile;
 
-    public FileManagerJson(String pathFile) {
-        this.pathFile = pathFile;
+    public FileManagerJson() {
+        this.pathFile = "src\\minerider\\normal.json";
     }
 
-//    public void insertMatrixInFile(int row, int column, ArrayList imaArrayList) throws IOException {
-//        JSONObject matrix = new JSONObject();
-//        matrix.put("row", row);
-//        matrix.put("column", column);
-//        try (FileWriter fileWriter = new FileWriter(pathFile, true)) {
-//
-//            fileWriter.write(matrix.toJSONString() + "\r\n");
-//
-//        }
-//
-//        for (int i = 0; i < imaArrayList.size(); i++) {
-//            JSONObject imagesObject = new JSONObject();
-//            Images images = (Images) imaArrayList.get(i);
-//            imagesObject.put("name", images.getName());
-//            imagesObject.put("imageNumber", images.getImageNumber());
-//            imagesObject.put("height", images.getHeight());
-//            imagesObject.put("width", images.getWidth());
-//            imagesObject.put("url", images.getUrl());
-//            imagesObject.put("columnPosition", images.getColumnPosition());
-//            imagesObject.put("rowPosition", images.getRowPosition());
-//
-//            try (FileWriter fileWriter = new FileWriter(pathFile, true)) {
-//
-//                fileWriter.write(imagesObject.toJSONString() + "\r\n");
-//
-//            }
-//        }
-//
-//    }
+    public Juego FileReader() {
+        Gson gson = new Gson();
+        Juego juego = null;
 
-//    public ArrayList<Images> getAllImages() throws ParseException {
-//        ArrayList<Images> objects = new ArrayList<>();
-//        JSONObject jsonObject;
-//
-//        // This will reference one line at a time
-//        String line = null;
-//
-//        try {
-//            // FileReader reads text files in the default encoding.
-//            FileReader fileReader = new FileReader(pathFile);
-//
-//            // Always wrap FileReader in BufferedReader.
-//            BufferedReader bufferedReader = new BufferedReader(fileReader);
-//
-//            int cont = 0;
-//            while ((line = bufferedReader.readLine()) != null) {
-//                jsonObject = (JSONObject) new JSONParser().parse(line);
-//                if (cont != 0) {
-//
-//                    Images image = new Images();
-//                    image.setName(jsonObject.get("name").toString());
-//                    image.setImageNumber(Integer.parseInt(jsonObject.get("imageNumber").toString()));
-//                    image.setHeight(Integer.parseInt(jsonObject.get("height").toString()));
-//                    image.setWidth(Integer.parseInt(jsonObject.get("width").toString()));
-//                    image.setUrl(jsonObject.get("url").toString());
-//                    image.setColumnPosition(Integer.parseInt(jsonObject.get("columnPosition").toString()));
-//                    image.setRowPosition(Integer.parseInt(jsonObject.get("rowPosition").toString()));
-//
-//                    System.out.println(image.toString1());
-//                    objects.add(image);
-//                }
-//                cont++;
-//            }
-//            // Always close files.
-//            bufferedReader.close();
-//        } catch (FileNotFoundException ex) {
-//            System.out.println("Unable to open file '" + pathFile + "'");
-//        } catch (IOException ex) {
-//            System.out.println("Error reading file '" + pathFile + "'");
-//            // Or we could just do this: 
-//            // ex.printStackTrace();
-//        }
-//        return objects;
-//    }
+        try (Reader reader = new FileReader("src\\minerider\\normal.json")) {
 
-    public Object getAllAtributes() throws ParseException {
+            // Convert JSON to Java Object
+            juego = gson.fromJson(reader, Juego.class);
+            System.out.println(juego);
 
-        JSONObject jsonObject;
-        String position = null;
-
-        // This will reference one line at a time
-        String line = null;
-
-        try {
-            // FileReader reads text files in the default encoding.
-            FileReader fileReader = new FileReader(pathFile);
-
-            // Always wrap FileReader in BufferedReader.
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-
-            int cont = 0;
-            while (((line = bufferedReader.readLine()) != null) && cont == 0) {
-                jsonObject = (JSONObject) new JSONParser().parse(line);
-
-                int row = Integer.parseInt(jsonObject.get("row").toString());
-                int column = Integer.parseInt(jsonObject.get("column").toString());
-                position = row + "x" + column;
-
-                cont++;
-            }
-            // Always close files.
-            bufferedReader.close();
-        } catch (FileNotFoundException ex) {
-            System.out.println("Unable to open file '" + pathFile + "'");
-        } catch (IOException ex) {
-            System.out.println("Error reading file '" + pathFile + "'");
-            // Or we could just do this: 
-            // ex.printStackTrace();
+            // Convert JSON to JsonElement, and later to String
+            /*JsonElement json = gson.fromJson(reader, JsonElement.class);
+            String jsonInString = gson.toJson(json);
+            System.out.println(jsonInString);*/
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return position;
+        return juego;
     }
 
     public void deleteJson(String pathDelete) {
@@ -151,4 +61,273 @@ public class FileManagerJson {
 
     }
 
+    public class Probalities {
+
+        private int stone;
+        private int zombie;
+        private int chimera;
+
+        public Probalities() {
+        }
+
+        public Probalities(int stone, int zombie, int chimera) {
+            this.stone = stone;
+            this.zombie = zombie;
+            this.chimera = chimera;
+        }
+
+        public int getStone() {
+            return stone;
+        }
+
+        public void setStone(int stone) {
+            this.stone = stone;
+        }
+
+        public int getZombie() {
+            return zombie;
+        }
+
+        public void setZombie(int zombie) {
+            this.zombie = zombie;
+        }
+
+        public int getChimera() {
+            return chimera;
+        }
+
+        public void setChimera(int chimera) {
+            this.chimera = chimera;
+        }
+
+        @Override
+        public String toString() {
+            return "Probalities{" + "stone=" + stone + ", zombie=" + zombie + ", chimera=" + chimera + '}';
+        }
+
+    }
+
+    public abstract class Personaje {
+
+        private int defense;
+        private int shortAttack;
+        private double delay;
+        private int range;
+
+        public Personaje() {
+        }
+
+        public Personaje(int defense, int shortAttack, double delay, int range) {
+            this.defense = defense;
+            this.shortAttack = shortAttack;
+            this.delay = delay;
+            this.range = range;
+        }
+
+        public int getDefense() {
+            return defense;
+        }
+
+        public void setDefense(int defense) {
+            this.defense = defense;
+        }
+
+        public int getShortAttack() {
+            return shortAttack;
+        }
+
+        public void setShortAttack(int shortAttack) {
+            this.shortAttack = shortAttack;
+        }
+
+        public double getDelay() {
+            return delay;
+        }
+
+        public void setDelay(double delay) {
+            this.delay = delay;
+        }
+
+        public int getRange() {
+            return range;
+        }
+
+        public void setRange(int range) {
+            this.range = range;
+        }
+
+        @Override
+        public String toString() {
+            return "personaje{" + "defense=" + defense + ", shortAttack=" + shortAttack + ", delay=" + delay + ", range=" + range + '}';
+        }
+
+    }
+
+    public class player extends Personaje {
+
+        private int visionRange;
+        private int LongAttack;
+
+        public player() {
+        }
+
+        public player(int defense, int shortAttack, double delay, int range) {
+            super(defense, shortAttack, delay, range);
+        }
+
+        public int getVisionRange() {
+            return visionRange;
+        }
+
+        public void setVisionRange(int visionRange) {
+            this.visionRange = visionRange;
+        }
+
+        public int getLongAttack() {
+            return LongAttack;
+        }
+
+        public void setLongAttack(int LongAttack) {
+            this.LongAttack = LongAttack;
+        }
+
+        @Override
+        public String toString() {
+            return "player{" + "visionRange=" + visionRange + ", LongAttack=" + LongAttack + super.toString();
+        }
+
+    }
+
+    public class chimera extends Personaje {
+
+        private int LongAttack;
+
+        public chimera() {
+        }
+
+        public chimera(int defense, int shortAttack, double delay, int range) {
+            super(defense, shortAttack, delay, range);
+        }
+
+        public int getLongAttack() {
+            return LongAttack;
+        }
+
+        public void setLongAttack(int LongAttack) {
+            this.LongAttack = LongAttack;
+        }
+
+        @Override
+        public String toString() {
+            return "chimera{" + "LongAttack=" + LongAttack + super.toString();
+        }
+
+    }
+
+    public class zombie extends Personaje {
+
+        public zombie() {
+        }
+
+        public zombie(int defense, int shortAtatack, double delay, int range) {
+            super(defense, shortAtatack, delay, range);
+        }
+
+    }
+
+    public class Juego {
+
+        private String saveFile;
+        private int width;
+        private int height;
+        private String type;
+        private Probalities probabilities;
+        private player player;
+        private chimera chimera;
+        private zombie zombie;
+
+        public Juego() {
+        }
+
+        public Juego(String saveFile, int width, int heigth, String type, Probalities probabilities, player player, chimera chimera, zombie zombie) {
+            this.saveFile = saveFile;
+            this.width = width;
+            this.height = height;
+            this.type = type;
+            this.probabilities = probabilities;
+            this.player = player;
+            this.chimera = chimera;
+            this.zombie = zombie;
+        }
+
+        public String getSaveFile() {
+            return saveFile;
+        }
+
+        public void setSaveFile(String saveFile) {
+            this.saveFile = saveFile;
+        }
+
+        public int getWidth() {
+            return width;
+        }
+
+        public void setWidth(int width) {
+            this.width = width;
+        }
+
+        public int getHeight() {
+            return height;
+        }
+
+        public void setHeight(int height) {
+            this.height = height;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public Probalities getProbabilities() {
+            return probabilities;
+        }
+
+        public void setProbabilities(Probalities probabilities) {
+            this.probabilities = probabilities;
+        }
+
+        public player getPlayer() {
+            return player;
+        }
+
+        public void setPlayer(player player) {
+            this.player = player;
+        }
+
+        public chimera getChimera() {
+            return chimera;
+        }
+
+        public void setChimera(chimera chimera) {
+            this.chimera = chimera;
+        }
+
+        public zombie getZombie() {
+            return zombie;
+        }
+
+        public void setZombie(zombie zombie) {
+            this.zombie = zombie;
+        }
+
+        @Override
+        public String toString() {
+            return "Juego{" + "saveFile=" + saveFile + ", width=" + width + ", height=" + height + ", type=" + type + ", probabilities=" + probabilities + ", player=" + player + ", chimera=" + chimera + ", zombie=" + zombie + '}';
+        }
+
+    }
 }

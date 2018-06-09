@@ -1,3 +1,5 @@
+package minerider;
+
 
 import minerider.Moustros;
 
