@@ -11,6 +11,14 @@ package minerider;
  */
 public class Caverna {
 
+    ///posibles atributols
+    
+    private int width;
+    private int height;
+    private String type;
+    private Probalities probabilities;
+
+    ///****
     private int tamano;
     private String tipo;
     private int visibilidad;
