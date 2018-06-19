@@ -1,18 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package minerider;
 
 /**
  *
  * @author ValeriaLeivaQuirós
  */
-public class ConstructorJuego {
-     
+public class BuilderGame {
 
-        private String saveFile;
+      private String saveFile;
         private int width;
         private int height;
         private String type;
@@ -21,10 +15,10 @@ public class ConstructorJuego {
         private chimera chimera;
         private zombie zombie;
 
-        public ConstructorJuego() {
+        public BuilderGame() {
         }
 
-        public ConstructorJuego(String saveFile, int width, int heigth, String type, Probalities probabilities, player player, chimera chimera, zombie zombie) {
+        public BuilderGame(String saveFile, int width, int heigth, String type, Probalities probabilities, player player, chimera chimera, zombie zombie) {
             this.saveFile = saveFile;
             this.width = width;
             this.height = height;
@@ -104,5 +98,4 @@ public class ConstructorJuego {
             return "Juego{" + "saveFile=" + saveFile + ", width=" + width + ", height=" + height + ", type=" + type + ", probabilities=" + probabilities + ", player=" + player + ", chimera=" + chimera + ", zombie=" + zombie + '}';
         }
 
-    }
-
+}

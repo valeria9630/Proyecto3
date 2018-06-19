@@ -22,6 +22,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import static minerider.Cavern.board;
 
 /**
  *
@@ -39,20 +40,42 @@ public class FXMLDocumentController implements Initializable {
 
     private int row;
     private int column;
-    FileManagerJson fileManagerJson;
+
+    private Game game;
 
     private void crear() {
 
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < column; j++) {
+        for (int i = 0; i < game.cavern.getWidth(); i++) {
+
+            for (int j = 0; j < game.cavern.getHeight(); j++) {
                 Tile tile = new Tile();
                 gridPane.setAlignment(Pos.TOP_LEFT);
                 gridPane.setValignment(tile, VPos.TOP);
                 gridPane.add(tile, i, j);
+                Image im;
+
+                if (board[i][j].state.equalsIgnoreCase("ZOMBIE")) {
+                    im = new Image("/imagenes/zombie.png", 100, 100, false, false);
+                    ImageView imageView = new ImageView();
+                    imageView.setImage(im);
+                    gridPane.add(imageView, i, j);
+
+                } else if (board[i][j].state.equalsIgnoreCase("CHIMERA")) {
+                    im = new Image("/imagenes/quimera.png.", 100, 100, false, false);
+                    ImageView imageView = new ImageView();
+                    imageView.setImage(im);
+                    gridPane.add(imageView, i, j);
+                } else if (board[i][j].state.equalsIgnoreCase("STONE")) {
+                    im = new Image("/imagenes/T.jpg", 100, 100, false, false);
+                    ImageView imageView = new ImageView();
+                    imageView.setImage(im);
+                    gridPane.add(imageView, i, j);
+                }
 
             }
 
             scrollPane.setContent(gridPane);
+
 //
         }
     }
@@ -64,9 +87,10 @@ public class FXMLDocumentController implements Initializable {
 
             rect.setFill(null);
 
-            rect.setStroke(Color.BLACK);
+            rect.setStroke(Color.ALICEBLUE);
 
             getChildren().addAll(rect);
+            ;
 
         }
 
@@ -74,9 +98,10 @@ public class FXMLDocumentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        fileManagerJson = new FileManagerJson();
-        row = fileManagerJson.FileReader().getWidth();
-        column = fileManagerJson.FileReader().getHeight();
+
+        row = 60;
+        column = 80;
+        game = new Game();
         gridPane = new GridPane();
 
         crear();

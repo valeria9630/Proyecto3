@@ -9,17 +9,19 @@ package minerider;
  *
  * @author ValeriaLeivaQuirós
  */
-public abstract class Personaje {
+public abstract class Character {
 
     private int defense;
     private int shortAttack;
     private double delay;
     private int range;
+    private int x;
+    private int y;
 
-    public Personaje() {
+    public Character() {
     }
 
-    public Personaje(int defense, int shortAttack, double delay, int range) {
+    public Character(int defense, int shortAttack, double delay, int range) {
         this.defense = defense;
         this.shortAttack = shortAttack;
         this.delay = delay;
@@ -56,6 +58,22 @@ public abstract class Personaje {
 
     public void setRange(int range) {
         this.range = range;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 
     @Override

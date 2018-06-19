@@ -5,21 +5,20 @@
  */
 package minerider;
 
-import org.json.simple.parser.ParseException;
-
 /**
  *
  * @author ValeriaLeivaQuirós
  */
-public class PruebasArchivos {
+public class NewMain {
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws ParseException {
-        Game game = new Game();
-        System.out.println(game.getCavern().t());
-       
+    public static void main(String[] args) {
+        for (int i = 0; i < 10; i++) {
+            int result = (int) ((Math.random() * 2 + 1));
+            System.out.println(result + "----");
+        }
 
     }
 

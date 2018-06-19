@@ -5,19 +5,26 @@
  */
 package minerider;
 
+import javafx.scene.image.Image;
+
 /**
  *
  * @author ValeriaLeivaQuirós
  */
-public class chimera extends Personaje {
+public class chimera extends Character {
 
     private int LongAttack;
 
+ 
+
     public chimera() {
+
     }
 
-    public chimera(int defense, int shortAttack, double delay, int range) {
+    public chimera(int LongAttack, int defense, int shortAttack, double delay, int range) {
         super(defense, shortAttack, delay, range);
+        this.LongAttack = LongAttack;
+
     }
 
     public int getLongAttack() {
@@ -34,4 +41,3 @@ public class chimera extends Personaje {
     }
 
 }
-

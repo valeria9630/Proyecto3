@@ -5,11 +5,13 @@
  */
 package minerider;
 
+import javafx.scene.image.Image;
+
 /**
  *
  * @author ValeriaLeivaQuirós
  */
-public class player extends Personaje {
+public class player extends Character {
 
     private int visionRange;
     private int LongAttack;
@@ -18,18 +20,34 @@ public class player extends Personaje {
     private char espada;
     private char látigo;
     private char pala;
+    Image image;
     //agregar posicion
 
     public player() {
+
     }
 
-    public player(int defense, int shortAttack, double delay, int range) {
-        super(defense, shortAttack, delay, range);
-        this.pala = pala;
+    public player(int visionRange, int LongAttack, String direccion, String salto, char espada, char látigo, char pala) {
+        this.visionRange = visionRange;
+        this.LongAttack = LongAttack;
+        this.direccion = direccion;
+        this.salto = salto;
         this.espada = espada;
         this.látigo = látigo;
-        this.salto = salto;
+        this.pala = pala;
+
+    }
+
+    public player(int visionRange, int LongAttack, String direccion, String salto, char espada, char látigo, char pala, int defense, int shortAttack, double delay, int range) {
+        super(defense, shortAttack, delay, range);
+        this.visionRange = visionRange;
+        this.LongAttack = LongAttack;
         this.direccion = direccion;
+        this.salto = salto;
+        this.espada = espada;
+        this.látigo = látigo;
+        this.pala = pala;
+
     }
 
     public int getVisionRange() {
